@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BHtech | Web Developer & Digital Solutions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Poppins', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #ededee;
+      scroll-behavior: smooth;
+    }
+
+    /* modern dark theme with neon accents */
+    :root {
+      --primary: #00d4ff;
+      --primary-dark: #0099cc;
+      --secondary: #7000ff;
+      --dark: #0a0a0f;
+      --gray: #1a1a24;
+      --light-gray: #2a2a35;
+      --text: #e0e0e0;
+    }
+
+    /* custom cursor glow */
+    .cursor-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: 0.05s linear;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 1rem 2rem;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    }
+
+    .nav-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00d4ff, #7000ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-content .highlight {
+      color: var(--primary);
+      text-shadow: 0 0 20px rgba(0,212,255,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #aaa;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,212,255,0.3);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      margin-left: 1rem;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,212,255,0.1);
+      transform: translateY(-3px);
+    }
+
+    .hero-image {
+      background: linear-gradient(145deg, #111118, #0d0d12);
+      border-radius: 30px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(0,212,255,0.2);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .code-preview {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: var(--primary);
+      background: #00000055;
+      padding: 1rem;
+      border-radius: 15px;
+    }
+
+    /* sections */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #888;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--gray);
+      padding: 2rem;
+      border-radius: 28px;
+      transition: all 0.3s;
+      border: 1px solid #2a2a35;
+      text-align: center;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 15px 30px rgba(0,212,255,0.1);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* portfolio */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .portfolio-item {
+      background: var(--gray);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: 0.3s;
+      border: 1px solid #2a2a35;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+    }
+
+    .portfolio-img {
+      height: 200px;
+      background: linear-gradient(135deg, #1a1a2a, #0f0f17);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .portfolio-info {
+      padding: 1.5rem;
+    }
+
+    /* contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      background: var(--gray);
+      border: 1px solid #333;
+      border-radius: 20px;
+      color: white;
+      font-family: inherit;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .phone-big {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .footer {
+      background: #050508;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid #1a1a24;
+    }
+
+    @media (max-width: 768px) {
+      .hero-container, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu {
+        display: block;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">BHtech</div>
+    <div class="mobile-menu" id="mobileMenu">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section id="home" class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1>Code. Create. <span class="highlight">Elevate.</span></h1>
+      <p>BHtech — modern web development, stunning designs, and digital solutions that drive results.</p>
+      <div>
+        <a href="#contact" class="btn btn-primary">Start a project →</a>
+        <a href="#portfolio" class="btn btn-outline">View work</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="code-preview">
+        &lt;div class="developer"&gt;<br>
+        &nbsp;&nbsp;console.log("BHtech builds cool stuff");<br>
+        &lt;/div&gt;
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <h2 class="section-title">What I build</h2>
+  <p class="section-subtitle">Modern, responsive, and fast websites tailored to your brand.</p>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🌐</div><h3>Websites & Landing Pages</h3><p>Custom websites that convert visitors into customers.</p></div>
+    <div class="service-card"><div class="service-icon">🛍️</div><h3>E-commerce solutions</h3><p>Online stores with secure payments & smooth UX.</p></div>
+    <div class="service-card"><div class="service-icon">📱</div><h3>Responsive Design</h3><p>Perfect on mobile, tablet, and desktop.</p></div>
+    <div class="service-card"><div class="service-icon">⚡</div><h3>Performance Optimization</h3><p>Speed, SEO, and clean code.</p></div>
+  </div>
+</section>
+
+<section id="portfolio" class="section">
+  <h2 class="section-title">Recent creations</h2>
+  <p class="section-subtitle">Real projects, real impact.</p>
+  <div class="portfolio-grid">
+    <div class="portfolio-item"><div class="portfolio-img">✨ Ceci Events</div><div class="portfolio-info"><h3>Luxury Event Planner</h3><p>Elegant brand website with lead form & gallery.</p></div></div>
+    <div class="portfolio-item"><div class="portfolio-img">📊 Fintech Dashboard</div><div class="portfolio-info"><h3>Analytics Platform</h3><p>Interactive UI + real-time data.</p></div></div>
+    <div class="portfolio-item"><div class="portfolio-img">☕ Cafe Online</div><div class="portfolio-info"><h3>Restaurant Ordering</h3><p>Mobile-first menu + delivery integration.</p></div></div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h2 class="section-title">Let's work together</h2>
+  <p class="section-subtitle">Got a project? Let’s bring it to life.</p>
+  <div class="contact-grid">
+    <form id="contactForm">
+      <div class="form-group"><input type="text" id="name" placeholder="Your name *" required></div>
+      <div class="form-group"><input type="email" id="email" placeholder="Email *" required></div>
+      <div class="form-group"><input type="tel" id="phone" placeholder="Phone number"></div>
+      <div class="form-group"><textarea rows="3" id="message" placeholder="Tell me about your idea..."></textarea></div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Send message 🚀</button>
+    </form>
+    <div class="contact-info">
+      <p>📞 <strong>Call / WhatsApp:</strong> <span class="phone-big">0972479267</span></p>
+      <p>📧 <strong>Email:</strong> hello@bhtech.dev</p>
+      <p>📍 Based in Lusaka, Zambia — available worldwide</p>
+      <p>💻 <strong>Tech stack:</strong> React, HTML/CSS, WordPress, Node.js</p>
+      <div style="margin-top:2rem; background:#1a1a24; padding:1rem; border-radius:20px; text-align:center;">
+        ⚡ "Let's build something awesome."
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 BHtech — Web Developer & Digital Creator.</p>
+  <p style="margin-top:0.5rem;">📞 0972479267 | Lusaka, Zambia</p>
+</footer>
+
+<script>
+  // cursor glow effect
+  const cursorGlow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', (e) => {
+    cursorGlow.style.left = e.clientX + 'px';
+    cursorGlow.style.top = e.clientY + 'px';
+  });
+
+  // mobile menu
+  const mobileBtn = document.getElementById('mobileMenu');
+  const navLinks = document.getElementById('navLinks');
+  mobileBtn.addEventListener('click', () => {
+    if (navLinks.style.display === 'flex') {
+      navLinks.style.display = 'none';
+    } else {
+      navLinks.style.display = 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '70px';
+      navLinks.style.left = '0';
+      navLinks.style.width = '100%';
+      navLinks.style.backgroundColor = '#0a0a0f';
+      navLinks.style.padding = '2rem';
+      navLinks.style.gap = '1.5rem';
+      navLinks.style.borderBottom = '1px solid var(--primary)';
+    }
+  });
+
+  // contact form handler
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    if (!name) return alert('Please enter your name');
+    alert(`🔥 Thanks ${name}! I'll get back to you soon. You can also call/WhatsApp 0972479267.`);
+    contactForm.reset();
+  });
+
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        if (navLinks.style.display === 'flex') navLinks.style.display = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>
